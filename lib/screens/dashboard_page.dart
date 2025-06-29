@@ -53,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage>
         // TODO: Implement add twitter functionality
         break;
       case 'disconnect':
-        // TODO: Implement disconnect functionality
+        Navigator.pushReplacementNamed(context, '/');
         break;
     }
   }
