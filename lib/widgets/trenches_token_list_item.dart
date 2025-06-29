@@ -32,10 +32,21 @@ class TrenchesTokenListItem extends StatefulWidget {
 
 class _TrenchesTokenListItemState extends State<TrenchesTokenListItem> {
   bool _isHovered = false;
+  bool _isCopied = false;
 
   // 复制到剪贴板的方法
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
+    setState(() {
+      _isCopied = true;
+    });
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isCopied = false;
+        });
+      }
+    });
   }
 
   @override
@@ -132,9 +143,9 @@ class _TrenchesTokenListItemState extends State<TrenchesTokenListItem> {
                         child: GestureDetector(
                           onTap: () => _copyToClipboard(widget.fullContractAddress),
                           child: Icon(
-                            Icons.copy, 
-                            size: 12, 
-                            color: Colors.grey[500],
+                            _isCopied ? Icons.check : Icons.copy,
+                            size: 12,
+                            color: _isCopied ? Colors.green : Colors.grey[500],
                           ),
                         ),
                       ),

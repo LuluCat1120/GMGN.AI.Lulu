@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../widgets/trenches_view.dart';
 import '../widgets/filter_widgets.dart';
 import 'wallet_page.dart';
@@ -185,9 +186,30 @@ Widget _buildListHeader() {
   return FilterWidgets.buildListHeader();
 }
 
-class TokenListItem extends StatelessWidget {
-    const TokenListItem({super.key, required this.tokenName, required this.age, required this.contractAddress, required this.solValue, required this.percentageChange});
-    final String tokenName, age, contractAddress, solValue, percentageChange;
+class TokenListItem extends StatefulWidget {
+  const TokenListItem({super.key, required this.tokenName, required this.age, required this.contractAddress, required this.solValue, required this.percentageChange});
+  final String tokenName, age, contractAddress, solValue, percentageChange;
+
+  @override
+  State<TokenListItem> createState() => _TokenListItemState();
+}
+
+class _TokenListItemState extends State<TokenListItem> {
+  bool _isCopied = false;
+
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    setState(() {
+      _isCopied = true;
+    });
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isCopied = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +230,7 @@ class TokenListItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(tokenName, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    Text(widget.tokenName, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     const SizedBox(width: 4),
                     const Icon(Icons.search, color: Colors.grey, size: 16),
                     const SizedBox(width: 4),
@@ -220,11 +242,18 @@ class TokenListItem extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Text(age, style: const TextStyle(color: Colors.greenAccent)),
+                    Text(widget.age, style: const TextStyle(color: Colors.greenAccent)),
                     const SizedBox(width: 8),
-                    Text(contractAddress, style: TextStyle(color: Colors.grey[600])),
+                    Text(widget.contractAddress, style: TextStyle(color: Colors.grey[600])),
                      const SizedBox(width: 4),
-                    Icon(Icons.copy, color: Colors.grey[600], size: 12),
+                    GestureDetector(
+                      onTap: () => _copyToClipboard(widget.contractAddress),
+                      child: Icon(
+                        _isCopied ? Icons.check : Icons.copy,
+                        color: _isCopied ? Colors.green : Colors.grey[600],
+                        size: 12,
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -233,9 +262,9 @@ class TokenListItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(solValue, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(widget.solValue, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              Text(percentageChange, style: TextStyle(color: Colors.grey[600])),
+              Text(widget.percentageChange, style: TextStyle(color: Colors.grey[600])),
             ],
           ),
           const SizedBox(width: 12),
