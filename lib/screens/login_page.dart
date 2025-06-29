@@ -43,40 +43,40 @@ class _LoginPageState extends State<LoginPage> {
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 40), // Space for close button
-                      // Header
-                      const Text(
-                        'Log In',
-                        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text.rich(
-                        TextSpan(
-                          text: 'Don\'t have an account yet? ',
-                          style: TextStyle(color: Colors.grey[400]),
-                          children: [
-                            TextSpan(
-                              text: 'Sign Up',
-                              style: TextStyle(
-                                color: Colors.greenAccent[400],
-                                fontWeight: FontWeight.bold,
-                              ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 40), // Space for close button
+                    // Header
+                    const Text(
+                      'Log In',
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text.rich(
+                      TextSpan(
+                        text: 'Don\'t have an account yet? ',
+                        style: TextStyle(color: Colors.grey[400]),
+                        children: [
+                          TextSpan(
+                            text: 'Sign Up',
+                            style: TextStyle(
+                              color: Colors.greenAccent[400],
+                              fontWeight: FontWeight.bold,
+                            ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.pushNamed(context, '/signup');
                                 },
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 32),
+                    ),
+                    const SizedBox(height: 32),
 
-                      // Email Field
-                      const Text('Email', style: TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
+                    // Email Field
+                    const Text('Email', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -97,11 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
-                      // Password Field
-                      const Text('Password', style: TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 8),
+                    // Password Field
+                    const Text('Password', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
                       TextFormField(
                         controller: _passwordController,
                         obscureText: true,
@@ -122,71 +122,71 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                      // Forgot Password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            color: Colors.greenAccent[400],
-                            fontWeight: FontWeight.bold,
-                          ),
+                    // Forgot Password
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.greenAccent[400],
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                    ),
+                    const SizedBox(height: 24),
 
-                      // Login Button
-                      ElevatedButton(
+                    // Login Button
+                    ElevatedButton(
                         onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent[400],
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text('Log In', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)),
-                      ),
-                      const SizedBox(height: 32),
-
-                      // Divider
-                      _buildDivider(),
-                      const SizedBox(height: 32),
-
-                      // Social Logins
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildSocialButton(Icons.telegram, 'Telegram'),
-                          _buildSocialButton(Icons.bubble_chart, 'Phantom', color: Colors.purpleAccent), // Placeholder icon
-                          _buildSocialButton(Icons.fullscreen, 'APP Scan'),
-                        ],
-                      ),
-                      const SizedBox(height: 40),
-                      
-                      // Connect with Extension
-                      const Center(child: Text('Connect with extension wallet →', style: TextStyle(fontWeight: FontWeight.bold))),
-                      const SizedBox(height: 24),
-
-                      // Footer
-                       Center(
-                        child: Text.rich(
-                          TextSpan(
-                            text: 'Terms of Service',
-                            style: TextStyle(color: Colors.grey[600]),
-                            children: [
-                              const TextSpan(text: '  |  '),
-                              TextSpan(
-                                text: 'Privacy Policy',
-                                style: TextStyle(color: Colors.grey[600]),
-                              ),
-                            ],
-                          ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.greenAccent[400],
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                    ],
+                      child: const Text('Log In', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Divider
+                    _buildDivider(),
+                    const SizedBox(height: 32),
+
+                    // Social Logins
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildSocialButton(Icons.telegram, 'Telegram'),
+                        _buildSocialButton(Icons.bubble_chart, 'Phantom', color: Colors.purpleAccent), // Placeholder icon
+                        _buildSocialButton(Icons.fullscreen, 'APP Scan'),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    
+                    // Connect with Extension
+                    const Center(child: Text('Connect with extension wallet →', style: TextStyle(fontWeight: FontWeight.bold))),
+                    const SizedBox(height: 24),
+
+                    // Footer
+                     Center(
+                      child: Text.rich(
+                        TextSpan(
+                          text: 'Terms of Service',
+                          style: TextStyle(color: Colors.grey[600]),
+                          children: [
+                            const TextSpan(text: '  |  '),
+                            TextSpan(
+                              text: 'Privacy Policy',
+                              style: TextStyle(color: Colors.grey[600]),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                   ),
                 ),
               ),

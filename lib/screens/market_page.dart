@@ -35,15 +35,19 @@ class MarketPage extends StatelessWidget {
         Expanded(
           child: TabBarView(
             controller: tabController,
-            children: const [
-              TrenchesView(),
-              NewCreationsView(),
-              Center(child: Text('Trending Content')),
-              Center(child: Text('Holdings Content')),
-              Center(child: Text('CopyTrade Content')),
-              Center(child: Text('Monitor Content')),
-              Center(child: Text('Track Content')),
-              WalletPage(), // Added WalletPage content
+            children: [
+              const TrenchesView(),
+              const NewCreationsView(),
+              const Center(child: Text('Trending Content')),
+              const Center(child: Text('CopyTrade Content')),
+              const Center(child: Text('Monitor Content')),
+              const Center(child: Text('Track Content')),
+              const Center(child: Text('Holdings Content')),
+              WalletPage(
+                onNavigateToCopyTrade: () {
+                  tabController.animateTo(3); // 3 is the index for CopyTrade
+                },
+              ), // Pass the callback here
             ],
           ),
         ),

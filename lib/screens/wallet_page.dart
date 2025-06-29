@@ -4,7 +4,9 @@ import '../models/wallet_data.dart';
 import '../services/wallet_service.dart';
 
 class WalletPage extends StatefulWidget {
-  const WalletPage({super.key});
+  final VoidCallback? onNavigateToCopyTrade;
+
+  const WalletPage({super.key, this.onNavigateToCopyTrade});
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -66,7 +68,7 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -85,156 +87,140 @@ class _WalletPageState extends State<WalletPage> {
   }
 
   Widget _buildWalletHeader() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 左侧：头像
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.blue,
-                child: Text(
-                  _walletData.shortAddress.substring(0, 2).toUpperCase(),
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ),
-              const SizedBox(width: 16),
-              // 中间：信息区域
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 第一行：地址名称和三个图标
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            _walletData.shortAddress,
-                            style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        GestureDetector(
-                          onTap: () => _copyToClipboard(_walletData.shortAddress, 1),
-                          child: Icon(
-                            _isCopied1 ? Icons.check : Icons.copy,
-                            color: _isCopied1 ? Colors.green : Colors.grey,
-                            size: 18,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Icon(Icons.share, color: Colors.grey, size: 18),
-                        const SizedBox(width: 8),
-                        const Icon(Icons.refresh, color: Colors.grey, size: 18),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    // 第二行：完整地址 + 复制图标 + 另一个图标
-                    Row(
-                      children: [
-                        Text(
-                          'CJzZXg',
-                          style: TextStyle(color: Colors.grey[400], fontSize: 14),
-                        ),
-                        const SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () => _copyToClipboard('CJzZXg...full_address', 2),
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[600],
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Icon(
-                              _isCopied2 ? Icons.check : Icons.copy,
-                              color: _isCopied2 ? Colors.green : Colors.white,
-                              size: 14,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Icon(Icons.menu, color: Colors.white, size: 14),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          // 左侧：头像
+          const CircleAvatar(
+            radius: 28,
+            backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=a042581f4e29026704d'),
           ),
-          const SizedBox(height: 16),
-          // 第三行：Add Twitter按钮和Copy trade按钮
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
+          const SizedBox(width: 12),
+          // 中间：信息区域
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // 第一行：地址名称和三个图标
+                Row(
                   children: [
-                    Icon(Icons.close, color: Colors.black, size: 16),
-                    SizedBox(width: 6),
                     Text(
-                      'Add Twitter',
-                      style: TextStyle(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w600),
+                      'CJZZX...QN5',
+                      style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(width: 6),
-                    Icon(Icons.arrow_forward_ios, color: Colors.black, size: 14),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () => _copyToClipboard('CJZZX...QN5', 1),
+                      child: Icon(
+                        _isCopied1 ? Icons.check : Icons.edit_outlined,
+                        color: _isCopied1 ? Colors.green : Colors.grey,
+                        size: 16,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(Icons.share, color: Colors.grey, size: 16),
+                    const SizedBox(width: 6),
+                    const Icon(Icons.refresh, color: Colors.grey, size: 16),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => _copyToClipboard('Copy trade functionality', 3),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[800],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            _isCopied3 ? Icons.check : Icons.content_copy,
-                            color: _isCopied3 ? Colors.green : Colors.white,
-                            size: 16,
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            'Copy trade',
-                            style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                const SizedBox(height: 6),
+                // 第二行：完整地址 + 复制图标 + 另一个图标
+                Row(
+                  children: [
+                    Text(
+                      'CJzZXg',
+                      style: TextStyle(color: Colors.grey[400], fontSize: 13),
+                    ),
+                    const SizedBox(width: 6),
+                    GestureDetector(
+                      onTap: () => _copyToClipboard('CJzZXg', 2),
+                      child: Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[600],
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Icon(
+                          _isCopied2 ? Icons.check : Icons.copy,
+                          color: _isCopied2 ? Colors.green : Colors.white,
+                          size: 12,
+                        ),
                       ),
                     ),
+                    const SizedBox(width: 6),
+                    Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[600],
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Icon(Icons.menu, color: Colors.white, size: 12),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // 第三行: Add Twitter按钮
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  const SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Colors.white,
-                    child: const Icon(Icons.person, color: Colors.black, size: 22),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.close, color: Colors.black, size: 14),
+                      SizedBox(width: 4),
+                      Text(
+                        'Add Twitter',
+                        style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(Icons.arrow_forward_ios, color: Colors.black, size: 12),
+                    ],
                   ),
-                ],
+                ),
+              ],
+            ),
+          ),
+          // 右侧：Copy trade按钮和用户头像水平排列
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  widget.onNavigateToCopyTrade?.call();
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[800],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(
+                        Icons.account_balance_wallet_outlined,
+                        color: Colors.white,
+                        size: 14,
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        'Copy trade',
+                        style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              const CircleAvatar(
+                radius: 18,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person_add_alt_1_outlined, color: Colors.black, size: 16),
               ),
             ],
           ),
